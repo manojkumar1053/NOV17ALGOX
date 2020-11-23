@@ -10,13 +10,19 @@ def threeNumberSort(array, order=None):
 
     lx = []
     for seq in order:
-        count = num_freq[seq]
-        lx.append([seq] * count)
-    ly = []
-    for row in lx:
-        for value in row:
-            ly.append(value)
-    return ly
+        if seq in num_freq:
+            count = num_freq[seq]
+            lx.append([seq] * count)
+            # lx.append([seq for seq in range(count)])
+
+    return sum(lx, [])
+    #https://www.geeksforgeeks.org/python-ways-to-flatten-a-2d-list/
+    # print(lx)
+    # ly = []
+    # for row in lx:
+    #     for value in row:
+    #         ly.append(value)
+    # #return ly
 
 
 array = [1, 0, 0, -1, -1, 0, 1, 1]
