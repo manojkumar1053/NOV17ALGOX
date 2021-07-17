@@ -1,26 +1,92 @@
-def firstNonRepeatingChar(str):
-    # for i in range(len(str)):
-    #     foundDuplicate = False
-    #     for j in range(len(str)):
-    #         if str[i] == str[j] and i != j:
-    #             foundDuplicate = True
-    #
-    #     if not foundDuplicate:
-    #         return i
-    # return -1
+# This is an input class. Do not edit.
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.prev = None
+        self.next = None
 
-    charFreq = {}
 
-    for char in str:
-        charFreq[char] = charFreq.get(char, 0) + 1
+# Feel free to add new properties and methods to the class.
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
 
-    for ele in str:
-        print(ele)
-        if charFreq[char] == 1:
-            return str.index(ele)
-    return -1
+    def setHead(self, node):
+        # Write your code here.
+        if self.head is None:
+            self.head = None
+            self.head = None
+            return
+        self.insertBefore(self.head, node)
 
-#print(firstNonRepeatingChar("manoja"))
-#===========LCS
+    def setTail(self, node):
+        # Write your code here.
+        if self.tail is None:
+            self.setHead(node)
+            return
+        self.insertAfter(self.tail,node)
 
-def lcs(str1,str2):
+    def insertBefore(self, node, nodeToInsert):
+        # Write your code here.
+        if nodeToInsert == self.head and nodeToInsert == self.tail:
+            return
+        self.remove(nodeToInsert)
+        nodeToInsert.prev = node.prev
+        nodeToInsert.next = node
+        # Before head
+        if node.prev is None:
+            self.head = nodeToInsert
+        else:
+            node.prev.next = nodeToInsert
+
+    def insertAfter(self, node, nodeToInsert):
+        # Write your code here.
+        if nodeToInsert == self.head and nodeToInsert == self.tail:
+            return
+        self.remove(nodeToInsert)
+        nodeToInsert.prev = node
+        nodeToInsert.next = node.next
+        if node.next is None:
+            self.tail = nodeToInsert
+        else:
+            node.next.prev = nodeToInsert
+        node.next = nodeToInsert
+
+
+    def insertAtPosition(self, position, nodeToInsert):
+        # Write your code here.
+        pass
+
+    def removeNodesWithValue(self, value):
+        # Write your code here.
+        node = self.head
+        while node is not None:
+            node_to_remove = node
+            node = node.next
+            if node_to_remove.value == value:
+                self.remove(node_to_remove)
+
+    def remove(self, node):
+        # Write your code here.
+        if node == self.head:
+            self.head = self.head.next
+        if node == self.tail:
+            self.tail = self.tail.prev
+        self.removeBindnings(node)
+
+    def containsNodeWithValue(self, value):
+        # Write your code here.
+        node = self.head
+        while node is not None and node.value != value:
+            node = node.next
+        return node is not None
+
+    def removeBindnings(self, node):
+        if node.prev is not None:
+            node.prev.next = node.next
+        if node.next is not None:
+            node.next.prev = node.prev
+        node.prev = None
+        node.next = None
+
